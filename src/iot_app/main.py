@@ -1,6 +1,7 @@
 import os
 from datetime import datetime, timezone
 from enum import Enum
+from http import HTTPStatus
 from typing import Dict, List, Optional
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, Response, status
@@ -110,15 +111,23 @@ async def http_exception_handler(request: Request, exc: HTTPException) -> JSONRe
     if isinstance(exc.detail, dict):
         problem = exc.detail
     else:
+        try:
+            title = HTTPStatus(exc.status_code).phrase
+        except ValueError:
+            title = "HTTP Error"
+        
         problem = build_problem(
             status_code=exc.status_code,
-            title=status.HTTP_STATUS_CODES.get(exc.status_code, "HTTP Error"),
+            title=title,
             detail=str(exc.detail),
             instance=str(request.url.path),
         )
 
     problem.setdefault("status", exc.status_code)
-    problem.setdefault("title", status.HTTP_STATUS_CODES.get(exc.status_code, "HTTP Error"))
+    try:
+        problem.setdefault("title", HTTPStatus(exc.status_code).phrase)
+    except ValueError:
+        problem.setdefault("title", "HTTP Error")
     problem.setdefault("type", "about:blank")
     problem.setdefault("detail", "Request failed")
     problem.setdefault("instance", str(request.url.path))
