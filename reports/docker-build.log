@@ -1,0 +1,66 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.11kB done
+#1 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1.7
+#2 DONE 1.9s
+
+#3 docker-image://docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e
+#3 resolve docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e 0.0s done
+#3 CACHED
+
+#4 [internal] load metadata for docker.io/library/python:3.11-slim
+#4 DONE 1.2s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 249B done
+#5 DONE 0.0s
+
+#6 [runtime 1/6] FROM docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0
+#6 resolve docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 355B done
+#7 DONE 0.0s
+
+#8 [builder 4/5] COPY requirements.txt .
+#8 CACHED
+
+#9 [runtime 3/6] RUN addgroup --system appgroup     && adduser --system --ingroup appgroup --home /app appuser
+#9 CACHED
+
+#10 [builder 3/5] RUN python -m venv /opt/venv
+#10 CACHED
+
+#11 [runtime 2/6] WORKDIR /app
+#11 CACHED
+
+#12 [builder 5/5] RUN /opt/venv/bin/pip install --no-cache-dir --upgrade pip     && /opt/venv/bin/pip install --no-cache-dir -r requirements.txt
+#12 CACHED
+
+#13 [builder 2/5] WORKDIR /build
+#13 CACHED
+
+#14 [runtime 4/6] COPY --from=builder /opt/venv /opt/venv
+#14 CACHED
+
+#15 [runtime 5/6] COPY src/ ./src/
+#15 CACHED
+
+#16 [runtime 6/6] RUN chown -R appuser:appgroup /app
+#16 CACHED
+
+#17 exporting to image
+#17 exporting layers done
+#17 exporting manifest sha256:bae06ba8bc0f8c084812fb58d8e893147a2359e40b7623ba8784137974e9f8d5 done
+#17 exporting config sha256:112c39949f35b4bc4db2eef0b38c263985d73770f9fd1345060bd8db19d25ccb done
+#17 exporting attestation manifest sha256:8d687d7606feb9a172fec114334530298fbbfdb6f02b8778dda6c2af263cf770 done
+#17 exporting manifest list sha256:60c6b9a3cede5a29b332a39592bc5e1a5fb76a37b4245e2c3253b1ab5d73542e done
+#17 naming to docker.io/fit4110/iot-ingestion:lab04 done
+#17 unpacking to docker.io/fit4110/iot-ingestion:lab04 done
+#17 DONE 0.0s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/wrrfqdo5jstn5vl52swv08p08

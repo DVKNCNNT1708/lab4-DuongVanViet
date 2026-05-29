@@ -35,7 +35,23 @@ jobs:
             fit4110/iot-ingestion:lab04
 
       - name: Wait for service health
-        run: npx wait-on http://localhost:8000/health --timeout 30000
+        run: |
+          for i in {1..90}; do
+            if curl -fsS http://localhost:8000/health >/dev/null; then
+              echo "Service is healthy."
+              exit 0
+            fi
+            if ! docker ps --format '{{.Names}}' | grep -q '^fit4110-iot-lab04$'; then
+              echo "Container is not running."
+              docker ps -a
+              docker logs fit4110-iot-lab04 || true
+              exit 1
+            fi
+            sleep 1
+          done
+          echo "Timed out waiting for /health"
+          docker logs fit4110-iot-lab04 || true
+          exit 1
 
       - name: Run Newman against Docker container
         run: npm run test:local

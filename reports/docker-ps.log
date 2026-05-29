@@ -1,0 +1,2 @@
+CONTAINER ID   IMAGE                         COMMAND                  CREATED          STATUS                    PORTS                    NAMES
+0677d1748003   fit4110/iot-ingestion:lab04   "sh -c 'uvicorn iot_…"   21 seconds ago   Up 20 seconds (healthy)   0.0.0.0:8000->8000/tcp   fit4110-iot-lab04
